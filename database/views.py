@@ -13,17 +13,10 @@ class TransactionListCreateView(ListCreateAPIView):
         request_data = self.request.data
         tracker(item_id=int(request_data.get('Item_Retrieved')),
                 request_amount=int(request_data.get('Number_of_Items')))
-        if tracker:
-            serializer.save()
-        else:
-            return ("Error, number of items less than requested")
+        serializer.save()
 
 
 def tracker(item_id, request_amount):
     item = Item.objects.get(id=item_id)
-    if item.remaining_number >= request_amount:
-        item.remaining_number -= request_amount
-        return True
-    else:
-        return Error
+    item.remaining_number -= request_amount
     item.save()
