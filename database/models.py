@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Item(models.Model):
+class Item(models.Model): #For defining the items present in the vending machine. And keeping track of the items present there.
     Name = models.CharField(max_length=100)
     remaining_number = models.IntegerField()
 
@@ -9,7 +9,7 @@ class Item(models.Model):
         return f'{self.Name} ({self.id})'
 
 
-class Transaction(models.Model):
+class Transaction(models.Model): # For keeping record of the transactions. 
     Card_Number = models.CharField(max_length=256)
     Item_Retrieved = models.ForeignKey(Item, on_delete=models.CASCADE)
     Number_of_Items = models.IntegerField(blank=True, null=True)

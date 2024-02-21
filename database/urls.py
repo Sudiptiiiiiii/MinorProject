@@ -2,8 +2,6 @@ from django.urls import path
 from . import views
 urlpatterns = [
     path('transaction/', views.TransactionListCreateView.as_view(),
-         name="transactions"),
-    path('items/', views.ItemListView.as_view(), name='items'),
-    path('update/<int:item_id>/',
-         views.tracker, name="updateDb")
+         name="transactions"), # For taking a look at all the transactions and also for sending posts to the database.
+    path('items/', views.ItemListView.as_view(), name='items'), # For taking a look at the current state of the database.
 ]
