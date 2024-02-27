@@ -4,7 +4,8 @@ from .models import Transaction, Item
 from .serializers import TransactionModelSerializer, ItemModelSerializer
 from rest_framework.response import Response
 from rest_framework import status
-
+from .models import Transaction
+from django.shortcuts import render
 
 class TransactionListCreateView(ListCreateAPIView): #For handling requests and transactions
     queryset = Transaction.objects.all()
@@ -37,3 +38,10 @@ def tracker(item_id, request_amount): # For updating the database according to t
 
     item.remaining_number -= request_amount # Updates the particulr data in the database. 
     item.save() # Save the update to the database.
+
+def index(request): 
+    transactions = Transaction.objects.all()
+    context = {
+        'transactions': transactions
+    }
+    return render(request, 'database/index.html', context)
