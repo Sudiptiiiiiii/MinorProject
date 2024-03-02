@@ -8,12 +8,19 @@ class Item(models.Model): #For defining the items present in the vending machine
     def __str__(self):
         return f'{self.Name} ({self.id})'
 
+class Cards(models.Model):
+    card_number = models.CharField(max_length = 255)
+    active = models.BooleanField(null=True, blank= True)
 
+    def __str__(self):
+        return f'{self.card_number}'
+    
 class Transaction(models.Model): # For keeping record of the transactions. 
-    Card_Number = models.CharField(max_length=256)
+    card_Number = models.ForeignKey(Cards,on_delete=models.CASCADE)
     Item_Retrieved = models.ForeignKey(Item, on_delete=models.CASCADE)
     Number_of_Items = models.IntegerField(blank=True, null=True)
     Date_of_Transaction = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.Card_Number} ({self.Date_of_Transaction})"
+        return f"{self.card_Number} ({self.Date_of_Transaction})"
+
